@@ -8,23 +8,18 @@ pipeline {
             description: 'Select the action to perform'
         )
         string(
-            name: 'BRANCH_NAME',
-            defaultValue: 'feature-branch1',
-            description: 'Name of the branch to create'
+            name: 'BRANCH',
+            defaultValue: 'main',
+            description: 'Name of the branch to checkout'
         )
     }
     stages {
         stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/rup197/Terraform-Automation.git']])
+                checkout scmGit(branches: [[name: "*/${params.BRANCH}"]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/rup197/Terraform-Automation.git']])
             }
         }
     
-        stage('Create Branch') {
-            steps {
-                sh "git checkout -b ${params.BRANCH_NAME}"
-            }
-        }
 
         stage ("terraform init") {
             steps {
