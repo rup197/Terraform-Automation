@@ -9,7 +9,7 @@ pipeline {
         )
         string(
             name: 'BRANCH_NAME',
-            defaultValue: 'feature-branch',
+            defaultValue: 'feature-branch1',
             description: 'Name of the branch to create'
         )
     }
