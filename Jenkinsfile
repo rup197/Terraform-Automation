@@ -7,6 +7,11 @@ pipeline {
             choices: ['plan', 'apply'],
             description: 'Select the action to perform'
         )
+        string(
+            name: 'BRANCH_NAME',
+            defaultValue: 'feature-branch',
+            description: 'Name of the branch to create'
+        )
     }
     stages {
         stage('Checkout') {
@@ -15,6 +20,12 @@ pipeline {
             }
         }
     
+        stage('Create Branch') {
+            steps {
+                sh "git checkout -b ${params.BRANCH_NAME}"
+            }
+        }
+
         stage ("terraform init") {
             steps {
                 sh ("terraform init -reconfigure") 
